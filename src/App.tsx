@@ -10,18 +10,24 @@ import './App.css';
 const App: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { movies, selectedMovie } = useSelector((state: any) => state.movies);
+
   const [sortedMovies, setSortedMovies] = useState<Movie[]>(movies);
   const [isCardView, setIsCardView] = useState<boolean>(
-    () => JSON.parse(localStorage.getItem('isCardView') || 'false') // Persist toggle state
+    () => JSON.parse(localStorage.getItem('isCardView') || 'false')
   );
+  const [filterText, setFilterText] = useState<string>(''); // New state for filtering
 
   useEffect(() => {
     dispatch(fetchMovies());
   }, [dispatch]);
 
   useEffect(() => {
-    setSortedMovies(movies); // Update sortedMovies whenever movies change
-  }, [movies]);
+    const filteredMovies = movies.filter((movie: Movie) => // Specify the type of movie
+      movie.title.toLowerCase().includes(filterText.toLowerCase()) ||
+      `Episode ${movie.episode_id}`.toLowerCase().includes(filterText.toLowerCase())
+    );
+    setSortedMovies(filteredMovies);
+  }, [movies, filterText]);
 
   const handleMovieSelect = (movie: Movie) => {
     dispatch(setSelectedMovie(movie));
@@ -65,7 +71,13 @@ const App: React.FC = () => {
             <button onClick={() => handleSort('Rating')}>Rating</button>
           </div>
         </div>
-        <input type="text" className="filter-input" placeholder="Filter movies..." />
+        <input
+          type="text"
+          className="filter-input"
+          placeholder="Filter movies..."
+          value={filterText}
+          onChange={(e) => setFilterText(e.target.value)} // Update filterText on input change
+        />
       </div>
       <div className="content">
         <div className="movie-list-section">
