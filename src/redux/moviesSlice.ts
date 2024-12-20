@@ -16,7 +16,7 @@ export interface Movie {
   metacritic: string;
 }
 
-interface MoviesState {
+export interface MoviesState {
   movies: Movie[];
   selectedMovie: Movie | null;
   loading: boolean;
