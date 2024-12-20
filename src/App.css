@@ -87,7 +87,7 @@
 .content {
   display: flex;
   flex-grow: 1;
-  flex-direction: row; /* Default for desktop */
+  flex-direction: row;
   gap: 1rem;
 }
 
@@ -105,7 +105,50 @@
 
 @media (max-width: 768px) {
   .content {
-    flex-direction: column; /* Stacks vertically on mobile */
+    flex-direction: column;
+  }
+
+  .movie-list-section {
+    margin: 0;
+    padding: 0;
+  }
+
+  .movie-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr; /* Star Wars, Title, Rating, Release */
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+    font-size: 0.9rem;
+  }
+
+  .movie-title {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .movie-rating, .movie-release-date {
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .accordion-content {
+    display: none;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-top: 0.5rem;
+  }
+
+  .movie-row.active .accordion-content {
+    display: block;
+  }
+
+  .movie-poster {
+    max-width: 72px;
+    max-height: 72px;
   }
 }
 
