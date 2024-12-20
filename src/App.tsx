@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchMovies, setSelectedMovie, Movie } from './redux/moviesSlice'; // Import the Movie type
+import { fetchMovies, setSelectedMovie, Movie } from './redux/moviesSlice';
 import { AppDispatch } from './redux/store';
 import MovieList from './components/MovieList/MovieList';
+import MovieCards from './components/MovieCards/MovieCards';
 import MovieDetails from './components/MovieDetails/MovieDetails';
 import './App.css';
 
@@ -10,14 +11,16 @@ const App: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { movies, selectedMovie } = useSelector((state: any) => state.movies);
   const [sortedMovies, setSortedMovies] = useState<Movie[]>(movies);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isCardView, setIsCardView] = useState<boolean>(
+    () => JSON.parse(localStorage.getItem('isCardView') || 'false') // Persist toggle state
+  );
 
   useEffect(() => {
     dispatch(fetchMovies());
   }, [dispatch]);
 
   useEffect(() => {
-    setSortedMovies(movies); // Update sortedMovies when movies change
+    setSortedMovies(movies); // Update sortedMovies whenever movies change
   }, [movies]);
 
   const handleMovieSelect = (movie: Movie) => {
@@ -43,7 +46,12 @@ const App: React.FC = () => {
         break;
     }
     setSortedMovies(sorted);
-    setIsDropdownOpen(false);
+  };
+
+  const toggleView = () => {
+    const newView = !isCardView;
+    setIsCardView(newView);
+    localStorage.setItem('isCardView', JSON.stringify(newView));
   };
 
   return (
@@ -61,11 +69,29 @@ const App: React.FC = () => {
       </div>
       <div className="content">
         <div className="movie-list-section">
-          <MovieList
-            movies={sortedMovies}
-            onMovieSelect={handleMovieSelect}
-            selectedMovie={selectedMovie}
-          />
+          <div className="toggle-container">
+            <div className="toggle-view">
+              <span className={!isCardView ? 'active' : ''}>List</span>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={isCardView}
+                  onChange={toggleView}
+                />
+                <span className="slider"></span>
+              </label>
+              <span className={isCardView ? 'active' : ''}>Cards</span>
+            </div>
+          </div>
+          {isCardView ? (
+            <MovieCards movies={sortedMovies} onMovieSelect={handleMovieSelect} />
+          ) : (
+            <MovieList
+              movies={sortedMovies}
+              onMovieSelect={handleMovieSelect}
+              selectedMovie={selectedMovie}
+            />
+          )}
         </div>
         <div className="movie-details-section">
           {selectedMovie ? (
