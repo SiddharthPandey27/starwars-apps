@@ -1,0 +1,93 @@
+.movie-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.movie-row {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.movie-row:hover {
+  background-color: #f7f7f7;
+}
+
+.movie-row.selected {
+  background-color: #e3f2fd; /* Light blue */
+  border-left: 4px solid #1976d2; /* Dark blue highlight */
+  padding-left: 6px; /* Adjust padding for border */
+}
+
+.movie-index {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.movie-poster-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.movie-poster {
+  width: 50px;
+  height: auto;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.movie-title {
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie-rating {
+  display: flex;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.star {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.star.filled {
+  color: #f5c518;
+}
+
+.star.half-filled {
+  background: linear-gradient(90deg, #f5c518 50%, #ccc 50%);
+  background-clip: text;
+  color: transparent;
+}
+
+.movie-release-date {
+  text-align: right;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+}
+
+.movie-details-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.movie-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 35%;
+}
