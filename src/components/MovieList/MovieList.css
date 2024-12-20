@@ -1,3 +1,6 @@
+/* Font for Star Wars text */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 .movie-list {
   display: flex;
   flex-direction: column;
@@ -91,4 +94,17 @@
   justify-content: space-between;
   align-items: center;
   width: 35%;
+}
+
+.movie-title-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.star-wars-text {
+  font-size: 10px;
+  font-weight: bold;
+  color: gray;
+  margin: 6px 0;
 }

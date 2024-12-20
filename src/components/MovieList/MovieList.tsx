@@ -9,6 +9,7 @@ interface MovieListProps {
 }
 
 const MovieList: React.FC<MovieListProps> = ({ movies, onMovieSelect, selectedMovie }) => {
+  console.log('movies MovieList', movies);
   return (
     <div className="movie-list">
       {movies.map((movie, index) => (
@@ -21,8 +22,11 @@ const MovieList: React.FC<MovieListProps> = ({ movies, onMovieSelect, selectedMo
           <div className="movie-details-wrapper">
             <div className="movie-poster-title">
               <img src={movie.image} alt={movie.title} className="movie-poster" />
-              <div className="movie-title">
-                Episode {movie.episode_id} - {movie.title}
+              <div className="movie-title-wrapper">
+                <div className="star-wars-text">Star Wars</div> {/* Star Wars title */}
+                <div className="movie-title">
+                  Episode {movie.episode_id} - {movie.title}
+                </div>
               </div>
             </div>
             <div className="movie-info">

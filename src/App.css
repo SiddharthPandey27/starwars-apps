@@ -78,7 +78,7 @@
 }
 
 /* Content styles */
-.content {
+/* .content {
   display: flex;
   flex-grow: 1;
 }
@@ -93,6 +93,32 @@
   flex: 1;
   padding: 20px;
   overflow-y: auto;
+} */
+
+/* Content styles */
+.content {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row; /* Default for desktop */
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column; /* Stacks vertically on mobile */
+  }
+}
+
+/* Movie List Section */
+.movie-list-section {
+  flex: 1;
+  overflow-y: auto; /* Makes movie list scrollable */
+}
+
+/* Movie Details Section */
+.movie-details-section {
+  flex: 1;
+  margin-top: 1rem; /* Add space between sections in mobile view */
 }
 
 .toggle-container {
