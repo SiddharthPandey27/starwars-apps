@@ -22,9 +22,10 @@ describe('MovieDetails Component', () => {
   it('renders the movie details correctly', () => {
     render(<MovieDetails movie={mockMovie} />);
     expect(screen.getByText(/The Phantom Menace/i)).toBeInTheDocument();
+    expect(screen.getByText(/Episode 1/i)).toBeInTheDocument();
     expect(screen.getByText(/George Lucas/i)).toBeInTheDocument();
     expect(screen.getByText(/Rick McCallum/i)).toBeInTheDocument();
-    expect(screen.getByText(/1999-05-19/i)).toBeInTheDocument();
+    expect(screen.getByText(/1999\/05\/19/i)).toBeInTheDocument(); // Format YYYY/MM/DD
     expect(screen.getByText(/A conflict arises.../i)).toBeInTheDocument();
   });
 
@@ -33,5 +34,17 @@ describe('MovieDetails Component', () => {
     expect(screen.getByText(/IMDb: 76%/i)).toBeInTheDocument();
     expect(screen.getByText(/Rotten Tomatoes: 79%/i)).toBeInTheDocument();
     expect(screen.getByText(/Metacritic: 68%/i)).toBeInTheDocument();
+  });
+
+  it('renders the poster image with alt text', () => {
+    render(<MovieDetails movie={mockMovie} />);
+    const posterImage = screen.getByAltText(/The Phantom Menace poster/i);
+    expect(posterImage).toBeInTheDocument();
+    expect(posterImage).toHaveAttribute('src', 'path/to/image.jpg');
+  });
+
+  it('shows no content if no movie is selected', () => {
+    render(<MovieDetails movie={null as unknown as Movie} />);
+    expect(screen.getByText(/Select a movie to view details/i)).toBeInTheDocument();
   });
 });

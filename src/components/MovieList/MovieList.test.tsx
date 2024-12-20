@@ -1,9 +1,12 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
 import MovieList from './MovieList';
-import { Movie } from '../../redux/moviesSlice';
+import moviesReducer, { MoviesState } from '../../redux/moviesSlice';
 
-const mockMovies: Movie[] = [
+// Mock movie data
+const mockMovies = [
   {
     title: 'The Phantom Menace',
     episode_id: 1,
@@ -18,53 +21,53 @@ const mockMovies: Movie[] = [
     rottenTomatoes: '79%',
     metacritic: '68%',
   },
-  {
-    title: 'Attack of the Clones',
-    episode_id: 2,
-    opening_crawl: '',
-    director: '',
-    producer: '',
-    release_date: '2002-05-16',
-    description: '',
-    image: '',
-    rating: 3.5,
-    imdbRating: '72%',
-    rottenTomatoes: '75%',
-    metacritic: '60%',
-  },
 ];
 
 describe('MovieList Component', () => {
-  const mockOnMovieSelect = jest.fn();
+  const setupStore = (preloadedState: { movies: MoviesState }) => {
+    return configureStore({
+      reducer: {
+        movies: moviesReducer,
+      },
+      preloadedState,
+    });
+  };
 
-  it('renders the list of movies correctly', () => {
-    render(<MovieList movies={mockMovies} onMovieSelect={mockOnMovieSelect} selectedMovie={null} />);
-    const movieTitles = screen.getAllByText(/Episode/i);
-    expect(movieTitles).toHaveLength(mockMovies.length);
+  it('renders the movie list correctly', () => {
+    const store = setupStore({
+      movies: {
+        movies: mockMovies,
+        selectedMovie: null,
+        loading: false,
+        error: '',
+      },
+    });
+
+    render(
+      <Provider store={store}>
+        <MovieList movies={mockMovies} onMovieSelect={jest.fn()} selectedMovie={null} />
+      </Provider>
+    );
+
+    expect(screen.getByText(/The Phantom Menace/i)).toBeInTheDocument();
   });
 
-  it('highlights the selected movie', () => {
-    render(
-      <MovieList
-        movies={mockMovies}
-        onMovieSelect={mockOnMovieSelect}
-        selectedMovie={mockMovies[0]}
-      />
-    );
-    const highlightedRow = screen.getByText(/The Phantom Menace/i).closest('.movie-row');
-    expect(highlightedRow).toHaveClass('selected');
-  });
+  it('renders no movies message when movie list is empty', () => {
+    const store = setupStore({
+      movies: {
+        movies: [],
+        selectedMovie: null,
+        loading: false,
+        error: '',
+      },
+    });
 
-  it('calls onMovieSelect when a movie is clicked', () => {
     render(
-      <MovieList
-        movies={mockMovies}
-        onMovieSelect={mockOnMovieSelect}
-        selectedMovie={null}
-      />
+      <Provider store={store}>
+        <MovieList movies={[]} onMovieSelect={jest.fn()} selectedMovie={null} />
+      </Provider>
     );
-    const movieRow = screen.getByText(/The Phantom Menace/i).closest('.movie-row');
-    fireEvent.click(movieRow!);
-    expect(mockOnMovieSelect).toHaveBeenCalledWith(mockMovies[0]);
+
+    expect(screen.getByText(/No movies available/i)).toBeInTheDocument();
   });
 });

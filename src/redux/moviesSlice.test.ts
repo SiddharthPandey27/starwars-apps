@@ -1,4 +1,4 @@
-import moviesReducer, { fetchMovies, setSelectedMovie, Movie } from '../redux/moviesSlice';
+import moviesReducer, { fetchMovies, setSelectedMovie, Movie } from './moviesSlice';
 
 describe('moviesSlice', () => {
   it('should handle initial state', () => {
