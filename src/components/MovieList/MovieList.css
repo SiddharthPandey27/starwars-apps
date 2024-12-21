@@ -93,7 +93,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 35%;
+  gap: 1rem;
 }
 
 .movie-title-wrapper {
