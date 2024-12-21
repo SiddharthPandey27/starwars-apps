@@ -78,12 +78,6 @@
 }
 
 /* Content styles */
-/* .content {
-  display: flex;
-  flex-grow: 1;
-}
-
-/* Content styles */
 .content {
   display: flex;
   flex-grow: 1;
@@ -102,16 +96,6 @@
   padding: 20px;
   overflow-y: auto;
 }
-
-/* .movie-list-section {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.movie-details-section {
-  flex: 1;
-  margin-top: 1rem;
-} */
 
 .toggle-container {
   text-align: center;
@@ -191,16 +175,6 @@ input:checked + .slider:before {
     margin: 0;
     padding: 0;
   }
-
-  /* .movie-row {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr 1fr;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    border-bottom: 1px solid #ccc;
-    font-size: 0.9rem;
-  } */
 
   .movie-row {
     display: flex;
