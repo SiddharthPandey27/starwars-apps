@@ -41,6 +41,7 @@ const initialState: MoviesState = {
   error: null,
 };
 
+// Fetch movies main info with SWAPI API and then all other info from OMDB API
 export const fetchMovies = createAsyncThunk(
   'movies/fetchMovies',
   async (_, { rejectWithValue }) => {

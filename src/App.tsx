@@ -15,7 +15,7 @@ const App: React.FC = () => {
   const [isCardView, setIsCardView] = useState<boolean>(
     () => JSON.parse(localStorage.getItem('isCardView') || 'false')
   );
-  const [filterText, setFilterText] = useState<string>(''); // New state for filtering
+  const [filterText, setFilterText] = useState<string>(''); // State for filtering
   const [isMobilePopupOpen, setIsMobilePopupOpen] = useState<boolean>(false); // State for popup
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const App: React.FC = () => {
   const handleMovieSelect = (movie: Movie) => {
     dispatch(setSelectedMovie(movie));
     if (window.innerWidth <= 768) {
-      setIsMobilePopupOpen(true); // Open popup on mobile
+      setIsMobilePopupOpen(true);
     }
   };
 
@@ -65,7 +65,7 @@ const App: React.FC = () => {
   };
 
   const closeMobilePopup = () => {
-    setIsMobilePopupOpen(false); // Close popup
+    setIsMobilePopupOpen(false);
   };
 
   return (
@@ -84,7 +84,7 @@ const App: React.FC = () => {
           className="filter-input"
           placeholder="Filter movies..."
           value={filterText}
-          onChange={(e) => setFilterText(e.target.value)} // Update filterText on input change
+          onChange={(e) => setFilterText(e.target.value)}
         />
       </div>
       <div className="content">

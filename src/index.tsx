@@ -1,11 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client'; // Import from 'react-dom/client' for createRoot
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
-import store from './redux/store'; // Ensure the correct path to your Redux store
+import store from './redux/store';
 
-// Use ReactDOM.createRoot for React 18+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(

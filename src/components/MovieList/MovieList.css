@@ -10,7 +10,7 @@
 .movie-row {
   display: flex;
   align-items: center;
-  padding: 10px 16px 10px 12px;
+  padding: 10px 16px;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -23,7 +23,7 @@
 .movie-row.selected {
   background-color: #e3f2fd; /* Light blue */
   border-left: 4px solid #1976d2; /* Dark blue highlight */
-  padding-left: 6px; /* Adjust padding for border */
+  padding-left: 6px;
 }
 
 .movie-index {
