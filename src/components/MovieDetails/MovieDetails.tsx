@@ -21,8 +21,13 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movie }) => {
         </div>
       </div>
       <div className="movie-details-footer">
+        <p><strong>Rated:</strong> {movie.rated}</p>
+        <p><strong>Runtime:</strong> {movie.runtime}</p>
+        <p><strong>Genre:</strong> {movie.genre}</p>
         <p><strong>Directed by:</strong> {movie.director}</p>
+        <p><strong>Writer:</strong> {movie.writer}</p>
         <p><strong>Produced by:</strong> {movie.producer}</p>
+        <p><strong>Awards:</strong> {movie.awards}</p>
         <p><strong>Release Date:</strong> {movie.release_date}</p>
         <p><strong>Average Rating: </strong>
           {Array.from({ length: 10 }, (_, i) => (
@@ -34,10 +39,14 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movie }) => {
             >
               ★
             </span>
-          ))}
+          ))} 
+          ({movie.imdbVotes} votes)
         </p>
+        <p><strong>Box Office:</strong> {movie.boxOffice}</p>
         <div className="movie-details-ratings">
-          <button>IMDb: {movie.imdbRating}</button>
+          <button onClick={() => window.open(`https://www.imdb.com/title/${movie.imdbID}`)}>
+            IMDb: {movie.imdbRating}
+          </button>
           <button>Rotten Tomatoes: {movie.rottenTomatoes}</button>
           <button>Metacritic: {movie.metacritic}</button>
         </div>

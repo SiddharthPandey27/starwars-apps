@@ -23,11 +23,17 @@
 }
 
 .movie-details-footer p {
-  margin: 5px 0;
+  margin: 8px 0;
+}
+
+.movie-details-footer strong {
+  display: inline-block;
+  width: 130px;
+  color: #444;
 }
 
 .movie-details-ratings {
-  margin: 12px 0;
+  margin: 16px 0;
 }
 
 .movie-details-ratings button {
@@ -44,7 +50,6 @@
   background-color: #0056b3;
 }
 
-/* Mobile-specific styles */
 @media (max-width: 768px) {
   .movie-details-container {
     padding: 10px;
@@ -63,8 +68,12 @@
     text-align: center;
   }
 
+  .movie-details-footer strong {
+    width: auto;
+  }
+
   .movie-details-footer {
-    margin-top: 15px;
+    margin: 15px 0;
   }
 
   .movie-details-ratings button {

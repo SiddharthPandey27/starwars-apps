@@ -1,35 +1,44 @@
-import moviesReducer, { fetchMovies, setSelectedMovie, Movie } from './moviesSlice';
+import reducer, { fetchMovies, setSelectedMovie, MoviesState } from './moviesSlice';
+import mockMovies from '../__mocks__/mockMovies';
 
 describe('moviesSlice', () => {
+  const initialState: MoviesState = {
+    movies: [],
+    selectedMovie: null,
+    loading: false,
+    error: null,
+  };
+
   it('should handle initial state', () => {
-    expect(moviesReducer(undefined, { type: 'unknown' })).toEqual({
-      movies: [],
-      selectedMovie: null,
-      loading: false,
-      error: '',
-    });
+    expect(reducer(undefined, { type: 'unknown' })).toEqual(initialState);
   });
 
-  it('should set selected movie', () => {
-    const previousState = { movies: [], selectedMovie: null, loading: false, error: '' };
+  it('should handle setSelectedMovie', () => {
+    const state = reducer(initialState, setSelectedMovie(mockMovies[0]));
+    expect(state.selectedMovie).toEqual(mockMovies[0]);
+  });
 
-    // Create a mock movie matching the full Movie interface
-    const newMovie: Movie = {
-      episode_id: 1,
-      title: 'Test Movie',
-      opening_crawl: 'A long time ago...',
-      director: 'George Lucas',
-      producer: 'Gary Kurtz',
-      release_date: '1977-05-25',
-      description: 'Description here',
-      image: 'https://example.com/poster.jpg',
-      rating: 4.5,
-      imdbRating: '76%',
-      rottenTomatoes: '79%',
-      metacritic: '68%',
-    };
+  it('should handle fetchMovies.fulfilled', () => {
+    const fulfilledState = reducer(
+      initialState,
+      { type: fetchMovies.fulfilled.type, payload: mockMovies }
+    );
+    expect(fulfilledState.movies).toEqual(mockMovies);
+    expect(fulfilledState.loading).toBe(false);
+  });
 
-    const newState = moviesReducer(previousState, setSelectedMovie(newMovie));
-    expect(newState.selectedMovie).toEqual(newMovie);
+  it('should handle fetchMovies.pending', () => {
+    const pendingState = reducer(initialState, { type: fetchMovies.pending.type });
+    expect(pendingState.loading).toBe(true);
+  });
+
+  it('should handle fetchMovies.rejected', () => {
+    const errorMessage = 'Failed to fetch movies.';
+    const rejectedState = reducer(
+      initialState,
+      { type: fetchMovies.rejected.type, payload: errorMessage }
+    );
+    expect(rejectedState.error).toEqual(errorMessage);
+    expect(rejectedState.loading).toBe(false);
   });
 });

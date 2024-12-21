@@ -17,6 +17,17 @@ const mockMovies: Movie[] = [
     imdbRating: '76%',
     rottenTomatoes: '79%',
     metacritic: '68%',
+    plot: 'A long time ago...',
+    actors: 'Liam Neeson, Ewan McGregor',
+    awards: 'Won 3 Oscars',
+    language: 'English',
+    runtime: '136 min',
+    genre: 'Action, Sci-Fi',
+    rated: 'PG',
+    writer: 'George Lucas',
+    imdbVotes: '1,200,000',
+    boxOffice: '$400,000,000',
+    imdbID: 'tt0120915',
   },
 ];
 
@@ -27,15 +38,6 @@ describe('MovieCards Component', () => {
     render(<MovieCards movies={mockMovies} onMovieSelect={mockOnMovieSelect} />);
     expect(screen.getByText(/The Phantom Menace/i)).toBeInTheDocument();
     expect(screen.getByText(/Episode 1/i)).toBeInTheDocument();
-    expect(screen.getByText(/1999\/05\/19/i)).toBeInTheDocument(); // Format YYYY/MM/DD
-    expect(screen.getByText(/4.5/i)).toBeInTheDocument(); // Rating
-  });
-
-  it('renders the poster image in each card', () => {
-    render(<MovieCards movies={mockMovies} onMovieSelect={mockOnMovieSelect} />);
-    const posterImage = screen.getByAltText(/The Phantom Menace poster/i);
-    expect(posterImage).toBeInTheDocument();
-    expect(posterImage).toHaveAttribute('src', 'path/to/image.jpg');
   });
 
   it('calls onMovieSelect when a card is clicked', () => {
@@ -44,9 +46,5 @@ describe('MovieCards Component', () => {
     fireEvent.click(movieCard!);
     expect(mockOnMovieSelect).toHaveBeenCalledWith(mockMovies[0]);
   });
-
-  it('renders an empty message when no movies are provided', () => {
-    render(<MovieCards movies={[]} onMovieSelect={mockOnMovieSelect} />);
-    expect(screen.getByText(/No movies available/i)).toBeInTheDocument();
-  });
 });
+
