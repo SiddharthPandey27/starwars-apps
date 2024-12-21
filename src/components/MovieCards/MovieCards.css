@@ -1,47 +1,60 @@
 .movie-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 10px;
+}
+
+.movie-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  background-color: #e9e9e9;
+}
+
+.movie-card-poster {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  height: 65%;
+}
+
+.movie-card-info {
+  text-align: center;
+}
+
+.movie-card-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.movie-card-release {
+  font-size: 14px;
+  color: #555;
+}
+
+.movie-card-rating {
+  font-size: 14px;
+  color: #007bff;
+}
+
+@media (max-width: 768px) {
+  .movie-cards {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  .movie-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-  }
-  
-  .movie-card:hover {
-    transform: scale(1.05);
-    background-color: #e9e9e9;
-  }
-  
   .movie-card-poster {
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 10px;
+    height: 50%;
   }
-  
-  .movie-card-info {
-    text-align: center;
-  }
-  
   .movie-card-title {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 5px;
+    margin-top: 5px;
   }
-  
-  .movie-card-release {
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .movie-card-rating {
-    font-size: 14px;
-    color: #007bff;
-  }
+}
   

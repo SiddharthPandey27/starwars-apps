@@ -18,6 +18,7 @@ const MovieCards: React.FC<MovieCardsProps> = ({ movies, onMovieSelect }) => {
         >
           <img src={movie.image} alt={movie.title} className="movie-card-poster" />
           <div className="movie-card-info">
+            <div className="star-wars-text">Star Wars</div>
             <h4 className="movie-card-title">
               Episode {movie.episode_id}:<br /> {movie.title}
             </h4>
