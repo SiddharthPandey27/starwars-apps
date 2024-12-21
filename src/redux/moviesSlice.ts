@@ -82,7 +82,7 @@ export const fetchMovies = createAsyncThunk('movies/fetchMovies', async (_, { re
           opening_crawl: movie.opening_crawl,
           director: movie.director,
           producer: movie.producer,
-          release_date: movie.release_date,
+          release_date: omdbData.Released || movie.release_date,
           description: omdbData.Plot || movie.opening_crawl,
           image: omdbData.Poster || `https://starwars-visualguide.com/assets/img/films/${movie.episode_id}.jpg`,
           rating: parseFloat(omdbData.imdbRating) || Math.random() * (5 - 3) + 3,

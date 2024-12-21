@@ -26,6 +26,10 @@
   margin: 5px 0;
 }
 
+.movie-details-ratings {
+  margin: 12px 0;
+}
+
 .movie-details-ratings button {
   margin-right: 10px;
   padding: 5px 10px;

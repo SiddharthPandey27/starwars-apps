@@ -43,7 +43,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies, onMovieSelect, selectedMo
               </div>
               <div className="movie-release-date">
                 {window.innerWidth <= 768 ? 'Release Date - ' : null}
-                {new Date(movie.release_date).toISOString().split('T')[0].replace(/-/g, '/')}
+                {movie.release_date}
               </div>
             </div>
           </div>
