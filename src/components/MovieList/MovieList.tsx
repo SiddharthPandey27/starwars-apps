@@ -44,8 +44,7 @@ const MovieList: React.FC<MovieListProps> = ({ movies, onMovieSelect, selectedMo
                 ))}
               </div>
               <div className="movie-release-date">
-                {window.innerWidth <= 768 ? 'Release Date - ' : null}
-                {movie.release_date}
+                {movie.release_date} 📅
               </div>
             </div>
           </div>

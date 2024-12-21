@@ -23,7 +23,7 @@ const MovieCards: React.FC<MovieCardsProps> = ({ movies, onMovieSelect }) => {
               Episode {movie.episode_id}:<br /> {movie.title}
             </h4>
             <p className="movie-card-release">
-              Release Date: {new Date(movie.release_date).toISOString().split('T')[0].replace(/-/g, '/')}
+              {movie.release_date} 📅
             </p>
             <p className="movie-card-rating">
               Rating: <span className="rating-stars">{movie.rating.toFixed(1)} ★</span>
