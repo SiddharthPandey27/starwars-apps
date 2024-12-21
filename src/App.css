@@ -101,6 +101,14 @@
 .toggle-container {
   text-align: center;
   margin: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sorted-by-selected {
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 .toggle-view {

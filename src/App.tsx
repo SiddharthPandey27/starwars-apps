@@ -17,6 +17,7 @@ const App: React.FC = () => {
   );
   const [filterText, setFilterText] = useState<string>(''); // State for filtering
   const [isMobilePopupOpen, setIsMobilePopupOpen] = useState<boolean>(false); // State for popup
+  const [selectedSort, setSelectedSort] = useState<string>('Episode No.'); // State for current sorting option
 
   useEffect(() => {
     dispatch(fetchMovies());
@@ -40,7 +41,7 @@ const App: React.FC = () => {
   const handleSort = (criteria: string) => {
     let sorted = [...movies];
     switch (criteria) {
-      case 'Episode':
+      case 'Episode No.':
         sorted.sort((a, b) => a.episode_id - b.episode_id);
         break;
       case 'Release Date':
@@ -56,6 +57,7 @@ const App: React.FC = () => {
         break;
     }
     setSortedMovies(sorted);
+    setSelectedSort(criteria);
   };
 
   const toggleView = () => {
@@ -74,7 +76,7 @@ const App: React.FC = () => {
         <div className="dropdown">
           <button className="sort-by-btn">Sort By</button>
           <div className="dropdown-content">
-            <button onClick={() => handleSort('Episode')}>Episode</button>
+            <button onClick={() => handleSort('Episode No.')}>Episode No.</button>
             <button onClick={() => handleSort('Release Date')}>Release Date</button>
             <button onClick={() => handleSort('Rating')}>Rating</button>
           </div>
@@ -90,6 +92,7 @@ const App: React.FC = () => {
       <div className="content">
         <div className="movie-list-section">
           <div className="toggle-container">
+            <div className="sorted-by-selected">Sorted By: {selectedSort}</div>
             <div className="toggle-view">
               <span className={!isCardView ? 'active' : ''}>List</span>
               <label className="switch">
