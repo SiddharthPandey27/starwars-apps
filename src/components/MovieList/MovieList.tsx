@@ -23,14 +23,14 @@ const MovieList: React.FC<MovieListProps> = ({ movies, onMovieSelect, selectedMo
           <div className="movie-details-wrapper">
             <div className="movie-poster-title">
               <img src={movie.image} alt={movie.title} className="movie-poster" />
+            </div>
+            <div className="movie-info">
               <div className="movie-title-wrapper">
                 <div className="star-wars-text">Star Wars</div>
                 <div className="movie-title">
                   Episode {movie.episode_id} - {movie.title}
                 </div>
               </div>
-            </div>
-            <div className="movie-info">
               <div className="movie-rating">
                 {Array.from({ length: 10 }, (_, i) => (
                   <span

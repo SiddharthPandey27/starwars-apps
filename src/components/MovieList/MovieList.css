@@ -40,7 +40,7 @@
 }
 
 .movie-poster {
-  width: 50px;
+  width: 3.25rem;
   height: auto;
   border-radius: 4px;
   object-fit: cover;
@@ -84,7 +84,7 @@
 
 .movie-details-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
   width: 100%;
 }
@@ -93,7 +93,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  width: 100%;
+  margin: 0 0 0 1rem;
 }
 
 .movie-title-wrapper {
@@ -111,14 +112,14 @@
 
 @media (max-width: 768px) {
   .movie-details-wrapper {
-    flex-direction: column;
-    align-items: start;
+    flex-direction: row;
+    justify-content: start;
   }
   .movie-info {
     width: 75%;
     flex-direction: column;
     gap: 0.25rem;
-    margin: 4px 0;
-    align-self: end;
+    margin: 0.25rem 0 0 1rem;
+    align-items: start;
   }
 }

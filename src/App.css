@@ -109,6 +109,7 @@
 .sorted-by-selected {
   font-size: 0.75rem;
   font-weight: 600;
+  color: #888;
 }
 
 .toggle-view {
