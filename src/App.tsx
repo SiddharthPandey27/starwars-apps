@@ -16,13 +16,14 @@ const App: React.FC = () => {
     () => JSON.parse(localStorage.getItem('isCardView') || 'false')
   );
   const [filterText, setFilterText] = useState<string>(''); // New state for filtering
+  const [isMobilePopupOpen, setIsMobilePopupOpen] = useState<boolean>(false); // State for popup
 
   useEffect(() => {
     dispatch(fetchMovies());
   }, [dispatch]);
 
   useEffect(() => {
-    const filteredMovies = movies.filter((movie: Movie) => // Specify the type of movie
+    const filteredMovies = movies.filter((movie: Movie) =>
       movie.title.toLowerCase().includes(filterText.toLowerCase()) ||
       `Episode ${movie.episode_id}`.toLowerCase().includes(filterText.toLowerCase())
     );
@@ -31,6 +32,9 @@ const App: React.FC = () => {
 
   const handleMovieSelect = (movie: Movie) => {
     dispatch(setSelectedMovie(movie));
+    if (window.innerWidth <= 768) {
+      setIsMobilePopupOpen(true); // Open popup on mobile
+    }
   };
 
   const handleSort = (criteria: string) => {
@@ -58,6 +62,10 @@ const App: React.FC = () => {
     const newView = !isCardView;
     setIsCardView(newView);
     localStorage.setItem('isCardView', JSON.stringify(newView));
+  };
+
+  const closeMobilePopup = () => {
+    setIsMobilePopupOpen(false); // Close popup
   };
 
   return (
@@ -106,12 +114,18 @@ const App: React.FC = () => {
           )}
         </div>
         <div className="movie-details-section">
-          {selectedMovie ? (
+          {!isMobilePopupOpen && selectedMovie ? (
             <MovieDetails movie={selectedMovie} />
           ) : (
             <p className="no-selection">Select a movie to view details.</p>
           )}
         </div>
+        {isMobilePopupOpen && (
+          <div className="mobile-popup">
+            <button className="close-popup-btn" onClick={closeMobilePopup}>✖</button>
+            <MovieDetails movie={selectedMovie} />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -103,55 +103,6 @@
   overflow-y: auto;
 }
 
-@media (max-width: 768px) {
-  .content {
-    flex-direction: column;
-  }
-
-  .movie-list-section {
-    margin: 0;
-    padding: 0;
-  }
-
-  .movie-row {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr 1fr; /* Star Wars, Title, Rating, Release */
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    border-bottom: 1px solid #ccc;
-    font-size: 0.9rem;
-  }
-
-  .movie-title {
-    font-size: 1rem;
-    font-weight: bold;
-  }
-
-  .movie-rating, .movie-release-date {
-    text-align: center;
-    font-size: 0.8rem;
-  }
-
-  .accordion-content {
-    display: none;
-    padding: 0.5rem;
-    font-size: 0.9rem;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    margin-top: 0.5rem;
-  }
-
-  .movie-row.active .accordion-content {
-    display: block;
-  }
-
-  .movie-poster {
-    max-width: 72px;
-    max-height: 72px;
-  }
-}
-
 /* .movie-list-section {
   flex: 1;
   overflow-y: auto;
@@ -228,4 +179,91 @@ input:checked + .slider {
 
 input:checked + .slider:before {
   transform: translateX(26px);
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .movie-list-section {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* .movie-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+    font-size: 0.9rem;
+  } */
+
+  .movie-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+    font-size: 0.9rem;
+  }
+
+  .movie-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+
+  .movie-rating, .movie-release-date {
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .accordion-content {
+    display: none;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-top: 0.5rem;
+  }
+
+  .movie-row.active .accordion-content {
+    display: block;
+  }
+
+  .movie-poster {
+    max-width: 72px;
+    max-height: 72px;
+  }
+
+  /* Popup styles */
+  .mobile-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 16px 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .close-popup-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .movie-details-section {
+    display: none;
+  }
 }

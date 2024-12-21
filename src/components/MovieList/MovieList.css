@@ -112,11 +112,13 @@
 @media (max-width: 768px) {
   .movie-details-wrapper {
     flex-direction: column;
+    align-items: start;
   }
   .movie-info {
     width: 75%;
     flex-direction: column;
     gap: 0.25rem;
     margin: 4px 0;
+    align-self: end;
   }
 }
