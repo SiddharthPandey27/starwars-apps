@@ -189,7 +189,7 @@ input:checked + .slider:before {
   .movie-row {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.25rem;
     padding: 0.5rem;
     border-bottom: 1px solid #ccc;
     font-size: 0.9rem;
