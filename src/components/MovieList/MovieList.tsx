@@ -9,8 +9,6 @@ interface MovieListProps {
 }
 
 const MovieList: React.FC<MovieListProps> = ({ movies, onMovieSelect, selectedMovie }) => {
-  console.log('movies MovieList', movies);
-
   return (
     <div className="movie-list">
       {movies.map((movie, index) => (

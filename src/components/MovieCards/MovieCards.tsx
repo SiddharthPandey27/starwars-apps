@@ -8,6 +8,11 @@ interface MovieCardsProps {
 }
 
 const MovieCards: React.FC<MovieCardsProps> = ({ movies, onMovieSelect }) => {
+
+  if (movies.length === 0) {
+    return <div className="movie-cards">No movies available</div>;
+  }
+
   return (
     <div className="movie-cards">
       {movies.map((movie) => (

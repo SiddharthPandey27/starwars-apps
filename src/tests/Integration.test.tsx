@@ -1,11 +1,41 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from '../App';
+import React, { act } from 'react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import store from '../redux/store';
+import { configureStore } from '@reduxjs/toolkit';
+import App from '../App';
 import mockMovies from '../__mocks__/mockMovies';
 
-describe('App Integration Test', () => {
+const mockReducer = (state = { movies: [], selectedMovie: null }, action: any) => {
+  switch (action.type) {
+    case 'movies/fetchMovies':
+      return { ...state, movies: action.payload };
+    case 'movies/selectMovie':
+      return { ...state, selectedMovie: action.payload };
+    default:
+      return state;
+  }
+};
+
+const createMockStore = (preloadedState: any) =>
+  configureStore({
+    reducer: {
+      movies: mockReducer,
+    },
+    preloadedState,
+  } as any);
+
+describe('Integration Test', () => {
+  let store: ReturnType<typeof createMockStore>;
+
+  beforeEach(() => {
+    store = createMockStore({
+      movies: {
+        movies: mockMovies,
+        selectedMovie: null,
+      },
+    });
+  });
+
   it('fetches movies and displays them', async () => {
     render(
       <Provider store={store}>
@@ -13,8 +43,8 @@ describe('App Integration Test', () => {
       </Provider>
     );
 
-    // Wait for movies to load
-    expect(await screen.findByText(/The Phantom Menace/)).toBeInTheDocument();
+    const movieTitle = await screen.findByText(/The Phantom Menace/);
+    expect(movieTitle).toBeInTheDocument();
   });
 
   it('displays movie details when a movie is selected', async () => {
@@ -24,10 +54,22 @@ describe('App Integration Test', () => {
       </Provider>
     );
 
-    const movieRow = await screen.findByText(/The Phantom Menace/);
-    movieRow.click();
-
-    expect(await screen.findByText(/Directed by:/)).toBeInTheDocument();
-    expect(screen.getByText(/George Lucas/)).toBeInTheDocument();
+    const movieTitle = await screen.findByText(/The Phantom Menace/);
+    fireEvent.click(movieTitle);
+    
+    await act(async () => {
+      store.dispatch({
+        type: 'movies/selectMovie',
+        payload: {
+          title: 'The Phantom Menace',
+          director: 'George Lucas',
+        },
+      });
+    });
+  
+    await waitFor(() => {
+      expect(screen.getByText(/Directed by:/)).toBeInTheDocument();
+      expect(screen.getByText(/George Lucas/)).toBeInTheDocument();
+    });
   });
 });

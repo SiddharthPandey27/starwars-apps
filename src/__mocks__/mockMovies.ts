@@ -4,14 +4,14 @@ const mockMovies: Movie[] = [
   {
     title: 'The Phantom Menace',
     episode_id: 1,
-    opening_crawl: '',
-    director: '',
-    producer: '',
+    opening_crawl: 'Turmoil has engulfed the Galactic Republic...',
+    director: 'George Lucas',
+    producer: 'Rick McCallum',
     release_date: '1999-05-19',
-    description: '',
+    description: 'A conflict arises in the Galactic Republic...',
     image: 'path/to/image.jpg',
     rating: 4.5,
-    imdbRating: '76%',
+    imdbRating: '7.6',
     rottenTomatoes: '79%',
     metacritic: '68%',
     plot: 'A long time ago...',
@@ -29,4 +29,3 @@ const mockMovies: Movie[] = [
 ];
 
 export default mockMovies;
-

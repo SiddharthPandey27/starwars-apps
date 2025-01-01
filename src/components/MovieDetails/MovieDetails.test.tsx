@@ -11,24 +11,54 @@ describe('MovieDetails Component', () => {
     render(<MovieDetails movie={mockMovie} />);
 
     expect(screen.getByText(mockMovie.title)).toBeInTheDocument();
-    expect(screen.getByText(`Description: ${mockMovie.description}`)).toBeInTheDocument();
-    expect(screen.getByText(`Rated: ${mockMovie.rated}`)).toBeInTheDocument();
-    expect(screen.getByText(`Runtime: ${mockMovie.runtime}`)).toBeInTheDocument();
-    expect(screen.getByText(`Genre: ${mockMovie.genre}`)).toBeInTheDocument();
-    expect(screen.getByText(`Directed by: ${mockMovie.director}`)).toBeInTheDocument();
-    expect(screen.getByText(`Writer: ${mockMovie.writer}`)).toBeInTheDocument();
-    expect(screen.getByText(`Produced by: ${mockMovie.producer}`)).toBeInTheDocument();
-    expect(screen.getByText(`Awards: ${mockMovie.awards}`)).toBeInTheDocument();
-    expect(screen.getByText(`Release Date: ${mockMovie.release_date}`)).toBeInTheDocument();
-    expect(screen.getByText(`Box Office: ${mockMovie.boxOffice}`)).toBeInTheDocument();
-    expect(screen.getByText(`IMDb: ${mockMovie.imdbRating}`)).toBeInTheDocument();
-    expect(screen.getByText(`Rotten Tomatoes: ${mockMovie.rottenTomatoes}`)).toBeInTheDocument();
-    expect(screen.getByText(`Metacritic: ${mockMovie.metacritic}`)).toBeInTheDocument();
+
+    const descriptionElement = screen.getByText(/Description:/i).parentElement;
+    expect(descriptionElement).toHaveTextContent(mockMovie.description);
+
+    const ratedElement = screen.getByText(/Rated:/i).parentElement;
+    expect(ratedElement).toHaveTextContent(mockMovie.rated);
+
+    const runtimeElement = screen.getByText(/Runtime:/i).parentElement;
+    expect(runtimeElement).toHaveTextContent(mockMovie.runtime);
+
+    const genreElement = screen.getByText(/Genre:/i).parentElement;
+    expect(genreElement).toHaveTextContent(mockMovie.genre);
+
+    const directedByElement = screen.getByText(/Directed by:/i).parentElement;
+    expect(directedByElement).toHaveTextContent(mockMovie.director);
+
+    const writerElement = screen.getByText(/Writer:/i).parentElement;
+    expect(writerElement).toHaveTextContent(mockMovie.writer);
+
+    const producedByElement = screen.getByText(/Produced by:/i).parentElement;
+    expect(producedByElement).toHaveTextContent(mockMovie.producer);
+
+    const awardsElement = screen.getByText(/Awards:/i).parentElement;
+    expect(awardsElement).toHaveTextContent(mockMovie.awards);
+
+    const releaseDateElement = screen.getByText(/Release Date:/i).parentElement;
+    expect(releaseDateElement).toHaveTextContent(mockMovie.release_date);
+
+    const boxOfficeElement = screen.getByText(/Box Office:/i).parentElement;
+    expect(boxOfficeElement).toHaveTextContent(mockMovie.boxOffice);
+
+    const imdbVotesElement = screen.getByText(/Average Rating:/i).parentElement;
+    expect(imdbVotesElement).toHaveTextContent(`${mockMovie.imdbVotes} votes`);
+
+    const imdbRatingElement = screen.getByText(/IMDb:/i).parentElement;
+    expect(imdbRatingElement).toHaveTextContent(mockMovie.imdbRating);
+
+    const rottenTomatoesElement = screen.getByText(/Rotten Tomatoes:/i).parentElement;
+    expect(rottenTomatoesElement).toHaveTextContent(mockMovie.rottenTomatoes);
+
+    const metacriticElement = screen.getByText(/Metacritic:/i).parentElement;
+    expect(metacriticElement).toHaveTextContent(mockMovie.metacritic);
   });
 
   it('renders IMDb link button correctly', () => {
     render(<MovieDetails movie={mockMovie} />);
-    const imdbButton = screen.getByText(`IMDb: ${mockMovie.imdbRating}`);
-    expect(imdbButton.closest('button')).toBeInTheDocument();
+    const imdbButton = screen.getByText(/IMDb:/i).closest('button');
+    expect(imdbButton).toBeInTheDocument();
+    expect(imdbButton).toHaveTextContent(mockMovie.imdbRating);
   });
 });

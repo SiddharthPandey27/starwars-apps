@@ -1,37 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import App from '../App';
 import moviesReducer, { MoviesState, Movie } from '../redux/moviesSlice';
-
-const mockMovies: Movie[] = [
-  {
-    title: 'The Phantom Menace',
-    episode_id: 1,
-    opening_crawl: '',
-    director: '',
-    producer: '',
-    release_date: '1999-05-19',
-    description: '',
-    image: 'path/to/image.jpg',
-    rating: 4.5,
-    imdbRating: '76%',
-    rottenTomatoes: '79%',
-    metacritic: '68%',
-    plot: 'A long time ago...',
-    actors: 'Liam Neeson, Ewan McGregor',
-    awards: 'Won 3 Oscars',
-    language: 'English',
-    runtime: '136 min',
-    genre: 'Action, Sci-Fi',
-    rated: 'PG',
-    writer: 'George Lucas',
-    imdbVotes: '1,200,000',
-    boxOffice: '$400,000,000',
-    imdbID: 'tt0120915',
-  },
-];
+import mockMovies from '../__mocks__/mockMovies';
 
 describe('App Component', () => {
   const setupStore = (preloadedState: { movies: MoviesState }) => {
@@ -43,7 +16,7 @@ describe('App Component', () => {
     });
   };
 
-  it('renders App with movies', () => {
+  it('renders App with movies and the filter input', () => {
     const store = setupStore({
       movies: {
         movies: mockMovies,
@@ -59,7 +32,7 @@ describe('App Component', () => {
       </Provider>
     );
 
-    expect(screen.getByText(/Filter movies/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Filter movies.../i)).toBeInTheDocument();
     expect(screen.getByText(/The Phantom Menace/i)).toBeInTheDocument();
   });
 
@@ -80,5 +53,88 @@ describe('App Component', () => {
     );
 
     expect(screen.getByText(/Select a movie to view details/i)).toBeInTheDocument();
+  });
+
+  it('allows selecting a movie and displays its details', () => {
+    const store = setupStore({
+      movies: {
+        movies: mockMovies,
+        selectedMovie: null,
+        loading: false,
+        error: '',
+      },
+    });
+  
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+  
+    const movieRow = screen.getByText(/The Phantom Menace/i).closest('.movie-row');
+    expect(movieRow).toBeInTheDocument();
+  
+    fireEvent.click(movieRow!);
+  
+    // Debugging output for the movie details section
+    const directedByContainer = screen.getByText(/Directed by:/i).parentElement;
+    expect(directedByContainer).toBeInTheDocument();
+    expect(directedByContainer).toHaveTextContent('George Lucas 🎬');
+  
+    const producedByContainer = screen.getByText(/Produced by:/i).parentElement;
+    expect(producedByContainer).toBeInTheDocument();
+    expect(producedByContainer).toHaveTextContent('Rick McCallum 🎥');
+  
+    expect(screen.getByText(/Won 3 Oscars/i)).toBeInTheDocument();
+  });
+
+  it('displays the dropdown menu when Sort By is hovered and sorts movies', () => {
+    const store = setupStore({
+      movies: {
+        movies: mockMovies,
+        selectedMovie: null,
+        loading: false,
+        error: '',
+      },
+    });
+
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+
+    const sortByButton = screen.getByText(/Sort By/i);
+    fireEvent.mouseOver(sortByButton);
+
+    const dropdownOption = screen.getByRole('button', { name: /Episode No./i });
+    expect(dropdownOption).toBeInTheDocument();
+
+    fireEvent.click(dropdownOption);
+
+    expect(screen.getByText(/The Phantom Menace/i)).toBeInTheDocument();
+  });
+
+  it('filters movies based on input', () => {
+    const store = setupStore({
+      movies: {
+        movies: mockMovies,
+        selectedMovie: null,
+        loading: false,
+        error: '',
+      },
+    });
+
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+
+    const filterInput = screen.getByPlaceholderText(/Filter movies.../i);
+    fireEvent.change(filterInput, { target: { value: 'Phantom' } });
+
+    expect(screen.getByText(/The Phantom Menace/i)).toBeInTheDocument();
+    expect(screen.queryByText(/The Attack of the Clones/i)).not.toBeInTheDocument();
   });
 });

@@ -1,35 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import MovieCards from './MovieCards';
-import { Movie } from '../../redux/moviesSlice';
-
-const mockMovies: Movie[] = [
-  {
-    title: 'The Phantom Menace',
-    episode_id: 1,
-    opening_crawl: '',
-    director: '',
-    producer: '',
-    release_date: '1999-05-19',
-    description: '',
-    image: 'path/to/image.jpg',
-    rating: 4.5,
-    imdbRating: '76%',
-    rottenTomatoes: '79%',
-    metacritic: '68%',
-    plot: 'A long time ago...',
-    actors: 'Liam Neeson, Ewan McGregor',
-    awards: 'Won 3 Oscars',
-    language: 'English',
-    runtime: '136 min',
-    genre: 'Action, Sci-Fi',
-    rated: 'PG',
-    writer: 'George Lucas',
-    imdbVotes: '1,200,000',
-    boxOffice: '$400,000,000',
-    imdbID: 'tt0120915',
-  },
-];
+import mockMovies from '../../__mocks__/mockMovies';
 
 describe('MovieCards Component', () => {
   const mockOnMovieSelect = jest.fn();
@@ -40,11 +12,27 @@ describe('MovieCards Component', () => {
     expect(screen.getByText(/Episode 1/i)).toBeInTheDocument();
   });
 
+  it('renders the poster image for each card', () => {
+    render(<MovieCards movies={mockMovies} onMovieSelect={mockOnMovieSelect} />);
+
+    const posterImage = screen.getByAltText(/The Phantom Menace/i);
+    expect(posterImage).toBeInTheDocument();
+    expect(posterImage).toHaveAttribute('src', mockMovies[0].image);
+  });
+
   it('calls onMovieSelect when a card is clicked', () => {
     render(<MovieCards movies={mockMovies} onMovieSelect={mockOnMovieSelect} />);
+
     const movieCard = screen.getByText(/The Phantom Menace/i).closest('.movie-card');
     fireEvent.click(movieCard!);
+
     expect(mockOnMovieSelect).toHaveBeenCalledWith(mockMovies[0]);
   });
-});
 
+  it('renders an empty state when no movies are provided', () => {
+    render(<MovieCards movies={[]} onMovieSelect={mockOnMovieSelect} />);
+
+    const emptyStateMessage = screen.getByText(/No movies available/i);
+    expect(emptyStateMessage).toBeInTheDocument();
+  });
+});
